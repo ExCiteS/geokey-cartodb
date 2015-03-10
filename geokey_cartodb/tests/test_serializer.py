@@ -14,6 +14,7 @@ class SerializerTest(TestCase):
         observation = ObservationFactory.create()
         serializer = CartoDbSerializer(observation)
 
+        self.assertIsNone(serializer.convert_value(None))
         self.assertEqual(type(serializer.convert_value('2.31')), float)
         self.assertEqual(type(serializer.convert_value('2')), int)
         self.assertEqual(type(serializer.convert_value('blah')), str)

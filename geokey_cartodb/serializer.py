@@ -9,15 +9,16 @@ class CartoDbSerializer(BaseSerializer):
         list_serializer_class = GeoFeatureModelListSerializer
 
     def convert_value(self, val):
-        try:  # it's an int
-            return int(val)
-        except ValueError:
-            pass
+        if val is not None:
+            try:  # it's an int
+                return int(val)
+            except ValueError:
+                pass
 
-        try:  # it's a float
-            return float(val)
-        except ValueError:
-            pass
+            try:  # it's a float
+                return float(val)
+            except ValueError:
+                pass
 
         # cannot convert to number, returns string or None
         return val
