@@ -25,7 +25,7 @@
             <li>
                 <h4>{{ project.name }}</h4>
                 {% if project.description %}<p>{{project.description}}</p>{% endif %}
-                <p class="meta">CartoDB export: <a href="#">http://{{ host }}</a></p>
+                <p class="meta">CartoDB export: <a href="{% url 'geokey_cartodb:project_data' project.id %}?format=json"><span class="lower-case">http://{{ host }}{% url 'geokey_cartodb:project_data' project.id %}</span></a></p>
                 <div class="form-group">
                     <div class="checkbox">
                         <label>
