@@ -8,14 +8,24 @@ class CartoDbSerializer(BaseSerializer):
     class Meta:
         list_serializer_class = GeoFeatureModelListSerializer
 
-    def to_representation(self, obj):
-        location = obj.location
+    def convert_value(self, val):
+        try:  # it's an int
+            return int(val)
+        except ValueError:
+            pass
 
+        try:  # it's a float
+            return float(val)
+        except ValueError:
+            pass
+
+        # cannot convert to number, returns string or None
+        return val
+
+    def to_representation(self, obj):
         properties = {}
-        for field in obj.category.fields.all():
-            value = obj.attributes.get(field.key)
-            if value is not None:
-                properties[field.key] = field.convert_from_string(value)
+        for key, value in obj.attributes.iteritems():
+            properties[key] = self.convert_value(value)
 
         return {
             'id': obj.id,
@@ -28,11 +38,6 @@ class CartoDbSerializer(BaseSerializer):
                 'updator': (obj.updator.display_name
                             if obj.updator is not None else None),
                 'created_at': obj.created_at,
-                'version': obj.version,
-                'location': {
-                    'id': location.id,
-                    'name': location.name,
-                    'description': location.description
-                }
+                'version': obj.version
             }
         }
