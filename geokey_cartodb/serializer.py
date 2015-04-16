@@ -9,7 +9,7 @@ class CartoDbSerializer(BaseSerializer):
         list_serializer_class = GeoFeatureModelListSerializer
 
     def convert_value(self, val):
-        if val is not None:
+        if val is not None and isinstance(val, str):
             try:  # it's an int
                 return int(val)
             except ValueError:
@@ -25,7 +25,7 @@ class CartoDbSerializer(BaseSerializer):
 
     def to_representation(self, obj):
         properties = {}
-        for key, value in obj.attributes.iteritems():
+        for key, value in obj.properties.iteritems():
             properties[key] = self.convert_value(value)
 
         return {

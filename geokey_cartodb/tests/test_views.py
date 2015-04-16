@@ -5,9 +5,9 @@ from django.http import HttpResponseRedirect
 
 from rest_framework.test import APIRequestFactory
 
-from users.tests.model_factories import UserF
-from projects.tests.model_factories import ProjectF
-from contributions.tests.model_factories import ObservationFactory
+from geokey.users.tests.model_factories import UserF
+from geokey.projects.tests.model_factories import ProjectF
+from geokey.contributions.tests.model_factories import ObservationFactory
 
 from ..views import IndexPage, ProjectDataView
 from ..models import CartoDbProject

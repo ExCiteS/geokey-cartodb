@@ -1,10 +1,10 @@
 from django.test import TestCase
 
-from projects.tests.model_factories import ProjectF
-from categories.tests.model_factories import (
+from geokey.projects.tests.model_factories import ProjectF
+from geokey.categories.tests.model_factories import (
     CategoryFactory, TextFieldFactory, NumericFieldFactory
 )
-from contributions.tests.model_factories import ObservationFactory
+from geokey.contributions.tests.model_factories import ObservationFactory
 
 from ..serializer import CartoDbSerializer
 
@@ -15,6 +15,8 @@ class SerializerTest(TestCase):
         serializer = CartoDbSerializer(observation)
 
         self.assertIsNone(serializer.convert_value(None))
+        self.assertEqual(type(serializer.convert_value(2.31)), float)
+        self.assertEqual(type(serializer.convert_value(2)), int)
         self.assertEqual(type(serializer.convert_value('2.31')), float)
         self.assertEqual(type(serializer.convert_value('2')), int)
         self.assertEqual(type(serializer.convert_value('blah')), str)
@@ -28,7 +30,7 @@ class SerializerTest(TestCase):
 
         observation = ObservationFactory.create(**{
             'category': category,
-            'attributes': {'text': 'Blah', 'float': 1.23, 'int': 2}
+            'properties': {'text': 'Blah', 'float': 1.23, 'int': 2}
         })
         serializer = CartoDbSerializer(observation)
         self.assertEqual(
