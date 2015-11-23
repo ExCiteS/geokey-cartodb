@@ -1,2 +1,4 @@
+include README.rst
+include LICENSE
 recursive-include geokey_cartodb/templates *
-recursive-include geokey_cartodb/migrations *
+recursive-exclude travis *
