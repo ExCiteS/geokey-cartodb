@@ -5,8 +5,8 @@ from django.http import HttpResponseRedirect
 
 from rest_framework.test import APIRequestFactory
 
-from geokey.users.tests.model_factories import UserF
-from geokey.projects.tests.model_factories import ProjectF
+from geokey.users.tests.model_factories import UserFactory
+from geokey.projects.tests.model_factories import ProjectFactory
 from geokey.contributions.tests.model_factories import ObservationFactory
 
 from ..views import IndexPage, ProjectDataView
@@ -18,7 +18,7 @@ class CartoDBProjectsTest(TestCase):
         view = IndexPage.as_view()
         url = reverse('geokey_cartodb:index')
         request = APIRequestFactory().get(url)
-        request.user = UserF.create(**{'is_superuser': False})
+        request.user = UserFactory.create(**{'is_superuser': False})
         response = view(request).render()
         self.assertEqual(response.status_code, 200)
 
@@ -31,7 +31,7 @@ class CartoDBProjectsTest(TestCase):
         self.assertTrue(isinstance(response, HttpResponseRedirect))
 
     def test_post_with_anonymous(self):
-        project_1 = ProjectF.create()
+        project_1 = ProjectFactory.create()
         view = IndexPage.as_view()
         url = reverse('geokey_cartodb:index')
         request = APIRequestFactory().post(url, data={'form': [project_1.id]})
@@ -40,18 +40,18 @@ class CartoDBProjectsTest(TestCase):
         self.assertTrue(isinstance(response, HttpResponseRedirect))
 
     def test_post_with_user(self):
-        project_1 = ProjectF.create()
+        project_1 = ProjectFactory.create()
         view = IndexPage.as_view()
         url = reverse('geokey_cartodb:index')
         request = APIRequestFactory().post(url, data={'form': [project_1.id]})
-        request.user = UserF.create(**{'is_superuser': False})
+        request.user = UserFactory.create(**{'is_superuser': False})
         response = view(request).render()
         self.assertEqual(response.status_code, 200)
 
     def test_update_projects(self):
-        project_1 = ProjectF.create()
-        project_2 = ProjectF.create()
-        project_3 = ProjectF.create()
+        project_1 = ProjectFactory.create()
+        project_2 = ProjectFactory.create()
+        project_3 = ProjectFactory.create()
 
         CartoDbProject.objects.create(project=project_1, enabled=True)
         CartoDbProject.objects.create(project=project_2, enabled=True)
@@ -71,7 +71,7 @@ class CartoDBProjectsTest(TestCase):
 
 class APITest(TestCase):
     def test_project(self):
-        project = ProjectF.create()
+        project = ProjectFactory.create()
         ObservationFactory.create_batch(2, **{'project': project})
         CartoDbProject.objects.create(project=project, enabled=True)
         factory = APIRequestFactory()
@@ -85,7 +85,7 @@ class APITest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_project_not_enabled(self):
-        project = ProjectF.create()
+        project = ProjectFactory.create()
         ObservationFactory.create_batch(2, **{'project': project})
 
         factory = APIRequestFactory()

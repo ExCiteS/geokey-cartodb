@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from geokey.projects.tests.model_factories import ProjectF
+from geokey.projects.tests.model_factories import ProjectFactory
 from geokey.categories.tests.model_factories import (
     CategoryFactory, TextFieldFactory, NumericFieldFactory
 )
@@ -22,7 +22,7 @@ class SerializerTest(TestCase):
         self.assertEqual(type(serializer.convert_value('blah')), str)
 
     def test_serializer(self):
-        project = ProjectF.create()
+        project = ProjectFactory.create()
         category = CategoryFactory.create(**{'project': project})
         TextFieldFactory.create(**{'key': 'text', 'category': category})
         NumericFieldFactory.create(**{'key': 'float', 'category': category})
