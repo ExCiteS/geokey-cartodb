@@ -20,6 +20,7 @@ class IndexPage(LoginRequiredMixin, TemplateView):
         return super(IndexPage, self).get_context_data(
             projects=projects,
             cartodb=enabled,
+            protocol=self.request.scheme,
             host=self.request.get_host(),
             *args,
             **kwargs
