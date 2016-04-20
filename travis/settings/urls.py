@@ -1,7 +1,8 @@
-from django.conf.urls import patterns, include, url
+"""GeoKey URL patterns."""
+
+from django.conf.urls import include, url
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^', include('geokey.core.urls')),
-)
+]

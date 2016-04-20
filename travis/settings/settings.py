@@ -1,3 +1,5 @@
+"""GeoKey settings for Travis CI."""
+
 import os.path
 from geokey.core.settings.dev import *
 
