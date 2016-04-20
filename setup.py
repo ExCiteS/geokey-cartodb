@@ -14,8 +14,8 @@ setup(
     description='Provides API endpoints for CartoDB',
     url=repository,
     download_url=join(repository, 'tarball', version),
-    author='Oliver Roick',
-    author_email='excitesucl@gmail.com',
+    author='ExCiteS',
+    author_email='excites@ucl.ac.uk',
     packages=find_packages(exclude=['*.tests', '*.tests.*', 'tests.*']),
     include_package_data=True,
 )
