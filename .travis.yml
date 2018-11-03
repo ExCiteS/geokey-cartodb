@@ -15,7 +15,7 @@ addons:
 
 env:
   - GEOKEY='>=1.6,<1.7' DJANGO='>=1.11,<1.12' DEPLOY=0
-  - GEOKEY='>=1.7,<1.8' DJANGO='>=1.11,<1.12' DEPLOY=
+  - GEOKEY='>=1.7,<1.8' DJANGO='>=1.11,<1.12' DEPLOY=1
 
 virtualenv:
   system_site_packages: true
