@@ -1,11 +1,10 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
 from views import (
     IndexPage, ProjectDataView
 )
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(
         r'^admin/cartodb/$',
         IndexPage.as_view(),
@@ -14,4 +13,4 @@ urlpatterns = patterns(
         r'^api/cartodb/projects/(?P<project_id>[0-9]+)$',
         ProjectDataView.as_view(),
         name='project_data')
-)
+]
